@@ -9,9 +9,5 @@ describe('template spec', () => {
     // Vérifie l'existence de l'article en utilisant le data-cy
     cy.get(':nth-child(1) > .add-to-cart > [data-cy="product-home-link"]').should('exist')
     cy.get(':nth-child(1) > .add-to-cart > [data-cy="product-home-link"]').click()
-
-    
-
-    
   });
 })
