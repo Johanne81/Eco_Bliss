@@ -9,3 +9,12 @@ describe("API Tests", () => {
     });
   });
 });
+
+describe("Authenticated API Tests", () => {
+  // Avant chaque test, on s'authentifie pour obtenir le token
+  before(() => {
+    cy.loginViaAPI(); // Commande personnalisée pour s'authentifier
+  });
+
+  it("should return the list of products in the cart when authenticated", () => {});
+});
