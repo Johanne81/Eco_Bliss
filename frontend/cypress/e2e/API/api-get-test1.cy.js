@@ -69,4 +69,50 @@ describe("API Tests method GET", () => {
       });
     });
   });
+
+  it("should return a specific product", () => {
+    // Se connecte
+    cy.request({
+      method: "POST",
+      url: `${apiUrl}/login`,
+      body: {
+        username: username,
+        password: password,
+      },
+    }).then((response) => {
+      const token = response.body.token;
+
+      // Récupère le détail d'un produit
+      cy.request({
+        method: "GET",
+        url: `${apiUrl}/products/5`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+
+        // Vérifie que la réponse contient les propriétés du produit
+        expect(response.body).to.have.property("id", 5);
+        expect(response.body).to.have.property("name", "Poussière de lune");
+        expect(response.body).to.have.property("availableStock", 23);
+        expect(response.body).to.have.property("skin", "Peau grasse");
+        expect(response.body).to.have.property("aromas", "Musc");
+        expect(response.body).to.have.property(
+          "ingredients",
+          "Huiles végétales"
+        );
+        expect(response.body).to.have.property(
+          "description",
+          "Essayez notre savon aujourd'hui pour une expérience de bain rafraîchissante et revitalisante."
+        );
+        expect(response.body).to.have.property("price", 9.99);
+        expect(response.body).to.have.property(
+          "picture",
+          "https://cdn.pixabay.com/photo/2016/07/11/15/45/soap-1509963_960_720.jpg"
+        );
+        expect(response.body).to.have.property("varieties", 6);
+      });
+    });
+  });
 });
