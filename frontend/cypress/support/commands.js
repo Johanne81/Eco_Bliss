@@ -14,18 +14,3 @@ Cypress.Commands.add("loginViaUI", () => {
   cy.getBySel("login-submit").click();
   cy.contains("Mon panier").should("be.visible");
 });
-
-// Commande pour l'authentification via requête API
-Cypress.Commands.add("loginViaAPI", () => {
-  cy.request({
-    method: "POST",
-    url: `${Cypress.env("apiUrl")}/login`,
-    body: {
-      email: Cypress.env("username"),
-      password: Cypress.env("password"),
-    },
-  }).then((response) => {
-    expect(response.status).to.eq(200);
-    Cypress.env("authToken", response.body.token); // Stocke le token dans les variables d'environnement
-  });
-});
