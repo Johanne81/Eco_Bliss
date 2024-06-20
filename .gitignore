@@ -1,1 +1,3 @@
 mysql/
+frontend/cypress/screenshots/orders/api-get-test1.cy.js/Authenticated API Tests -- should return the list of products in the cart when authenticated -- before all hook (failed).png
+cypress/screenshots/
