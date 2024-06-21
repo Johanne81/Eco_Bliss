@@ -12,5 +12,6 @@ Cypress.Commands.add("loginViaUI", () => {
   cy.getBySel("login-input-username").type(username);
   cy.getBySel("login-input-password").type(password);
   cy.getBySel("login-submit").click();
-  cy.contains("Mon panier").should("be.visible");
+  cy.getBySel("nav-link-cart").should("be.visible").should("contain", "Mon panier");
+  cy.getBySel("nav-link-logout").should("be.visible").should("contain", "Déconnexion");
 });
