@@ -17,7 +17,7 @@ describe("API Tests method GET", () => {
   });
 
   it("should retrieve the list of products in the cart", () => {
-    // Se connecte
+    // Se connecter
     cy.request({
       method: "POST",
       url: `${apiUrl}/login`,
@@ -28,7 +28,7 @@ describe("API Tests method GET", () => {
     }).then((response) => {
       const token = response.body.token;
 
-      // Récupère le panier en cours chez l'utilisateur courant
+      // Récupèrer le panier en cours chez l'utilisateur courant
       cy.request({
         method: "GET",
         url: `${apiUrl}/orders`,
@@ -38,12 +38,12 @@ describe("API Tests method GET", () => {
       }).then((response) => {
         expect(response.status).to.eq(200);
 
-        // Vérifie que la réponse contient une liste de produits
+        // Vérifier que la réponse contient une liste de produits
         const orders = response.body.orderLines;
         expect(orders).to.be.an("array");
         expect(orders).to.have.length.greaterThan(0);
 
-        // Vérifie les propriétés de chaque produit dans la liste
+        // Vérifier les propriétés de chaque produit dans la liste
         orders.forEach((order) => {
           expect(order).to.have.property("id");
           expect(order).to.have.property("product");
@@ -55,7 +55,7 @@ describe("API Tests method GET", () => {
           expect(order).to.have.property("quantity");
         });
 
-        // Vérifie les propriétés d'un produit en particulier
+        // Vérifier les propriétés d'un produit en particulier
         const expectedProduct = {
           id: 7,
           name: "Extrait de nature",
@@ -71,7 +71,7 @@ describe("API Tests method GET", () => {
   });
 
   it("should return a specific product", () => {
-    // Se connecte
+    // Se connecter
     cy.request({
       method: "POST",
       url: `${apiUrl}/login`,
@@ -92,7 +92,7 @@ describe("API Tests method GET", () => {
       }).then((response) => {
         expect(response.status).to.eq(200);
 
-        // Vérifie que la réponse contient les propriétés du produit
+        // Vérifier que la réponse contient les propriétés du produit
         expect(response.body).to.have.property("id", 5);
         expect(response.body).to.have.property("name", "Poussière de lune");
         expect(response.body).to.have.property("availableStock", 23);

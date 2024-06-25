@@ -4,7 +4,7 @@ describe("API Tests method POST, Login", () => {
   const password = Cypress.env("password");
 
   it("should return a 401 error for an unknown user", () => {
-    // Se connecte avec des identifiants incorrects
+    // Se connecter avec des identifiants incorrects
     cy.request({
       method: "POST",
       url: `${apiUrl}/login`,
@@ -94,40 +94,41 @@ describe("API Tests method POST, Orders", () => {
       });
     });
   });
+});
 
-  describe("API Tests method POST, Reviews", () => {
-    const apiUrl = Cypress.env("apiUrl");
-    const username = Cypress.env("username");
-    const password = Cypress.env("password");
+describe("API Tests method POST, Reviews", () => {
+  const apiUrl = Cypress.env("apiUrl");
+  const username = Cypress.env("username");
+  const password = Cypress.env("password");
 
-    // Ajouter un avis
-    it("add a review", () => {
+  // Ajouter un avis
+  it("add a review", () => {
+    cy.request({
+      method: "POST",
+      url: `${apiUrl}/login`,
+      body: {
+        username: username,
+        password: password,
+      },
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      const token = response.body.token;
+
       cy.request({
         method: "POST",
-        url: `${apiUrl}/login`,
+        url: `${apiUrl}/reviews`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: {
-          username: username,
-          password: password,
+          title: "Test ajout d'avis",
+          comment: "Test commentaire",
+          rating: "5",
         },
       }).then((response) => {
         expect(response.status).to.eq(200);
-        const token = response.body.token;
-
-        cy.request({
-          method: "POST",
-          url: `${apiUrl}/reviews`,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: {
-            title: "Test ajout d'avis",
-            comment: "Test commentaire",
-            rating: "5",
-          },
-        }).then((response) => {
-          expect(response.status).to.eq(200);
-        });
       });
     });
   });
 });
+
