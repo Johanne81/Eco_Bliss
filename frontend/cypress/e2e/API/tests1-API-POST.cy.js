@@ -51,7 +51,7 @@ describe("API Tests method POST, Orders", () => {
       const token = response.body.token;
 
       cy.request({
-        method: "PUT", // Anomalie, les specs disaient POST
+        method: "PUT", // ANOMALIE, les specs disaient POST
         url: `${apiUrl}/orders/add`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ describe("API Tests method POST, Orders", () => {
   });
 
   // Ajouter un produit en rupture de stock dans le panier
-  it("add an out-of-stock product to the cart", () => {
+  it("should't add an out-of-stock product to the cart", () => {
     cy.request({
       method: "POST",
       url: `${apiUrl}/login`,
@@ -80,7 +80,7 @@ describe("API Tests method POST, Orders", () => {
       const token = response.body.token;
 
       cy.request({
-        method: "PUT", // Anomalie, les specs disaient POST
+        method: "PUT", // ANOMALIE, les specs disaient POST
         url: `${apiUrl}/orders/add`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -89,8 +89,9 @@ describe("API Tests method POST, Orders", () => {
           product: "3", // ID du produit "Sentiments printanniers" en rupture
           quantity: 1,
         },
+        failOnStatusCode: false,
       }).then((response) => {
-        expect(response.status).to.eq(200); // Anomalie, devrait être 400 ou 409
+        expect([400, 409]).to.include(response.status); // ANOMALIE, la réponse est 200, permet l'ajout d'un produit en rupture de stock
       });
     });
   });
@@ -102,7 +103,7 @@ describe("API Tests method POST, Reviews", () => {
   const password = Cypress.env("password");
 
   // Ajouter un avis
-  it("add a review", () => {
+  it("add a review from a logged-in user", () => {
     cy.request({
       method: "POST",
       url: `${apiUrl}/login`,
@@ -121,9 +122,10 @@ describe("API Tests method POST, Reviews", () => {
           Authorization: `Bearer ${token}`,
         },
         body: {
-          title: "Test ajout d'avis",
-          comment: "Test commentaire",
-          rating: "5",
+          title: "Dans la forêt",
+          comment:
+            "Savon très efficace, mais attention, il peut vraiment brûler la peau! 😂 ",
+          rating: "3",
         },
       }).then((response) => {
         expect(response.status).to.eq(200);
@@ -131,4 +133,3 @@ describe("API Tests method POST, Reviews", () => {
     });
   });
 });
-

@@ -15,3 +15,5 @@ Cypress.Commands.add("loginViaUI", () => {
   cy.getBySel("nav-link-cart").should("be.visible").should("contain", "Mon panier");
   cy.getBySel("nav-link-logout").should("be.visible").should("contain", "Déconnexion");
 });
+
+
