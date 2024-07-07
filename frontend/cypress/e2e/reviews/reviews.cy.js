@@ -39,9 +39,10 @@ describe("User Reviews", () => {
       }).then((response) => {
         expect(response.status).to.eq(200);
 
-        // Vérifier que le script n'est pas éxécuté
-        cy.visit("/reviews");
-        cy.contains("<script>alert('XSS')</script>").should("not.exist");
+        // Vérifier que le script n'est pas enregistré dans la base de données
+        expect(response.body.comment).not.to.include(
+          "<script>alert('XSS')</script>"
+        );
       });
     });
   });

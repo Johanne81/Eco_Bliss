@@ -19,7 +19,7 @@ describe("Cart Functionality via API", () => {
     });
   });
 
-  it("add a product to the cart and check the cart contain", () => {
+  it("should add a product to the cart and check the cart contain", () => {
     //Ajouter le produit au panier via API
     cy.request({
       method: "PUT",
@@ -33,22 +33,23 @@ describe("Cart Functionality via API", () => {
       },
     }).then((response) => {
       expect(response.status).to.eq(200);
-    });
-    // Vérifier que le produit est bien ajouté au panier
-    cy.request({
-      method: "GET",
-      url: `${apiUrl}/orders`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      expect(response.status).to.eq(200);
 
-      const addedProduct = response.body.orderLines.find(
-        (line) => line.product.id === 8
-      );
-      expect(addedProduct).to.exist;
-      expect(addedProduct.quantity).to.eq(1);
+      // Vérifier que le produit est bien ajouté au panier
+      cy.request({
+        method: "GET",
+        url: `${apiUrl}/orders`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+
+        const addedProduct = response.body.orderLines.find(
+          (line) => line.product.id === 8
+        );
+        expect(addedProduct).to.exist;
+        expect(addedProduct.quantity).to.eq(1);
+      });
     });
   });
 });

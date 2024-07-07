@@ -7,9 +7,7 @@ describe("API Tests method GET", () => {
     cy.request({
       method: "GET",
       url: `${apiUrl}/orders`,
-      headers: {
-        Authorization: "", // En-tête Authorization vide pour spécifier que l'utilisateur n'est pas connecté
-      },
+      headers: {}, // En-têtes vides, absence d'authentification
       failOnStatusCode: false, // Permet à la requête de réussir même si elle renvoie un code d'erreur
     }).then((response) => {
       expect(response.status).to.eq(401);

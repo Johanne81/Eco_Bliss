@@ -51,13 +51,13 @@ describe("API Tests method POST, Orders", () => {
       const token = response.body.token;
 
       cy.request({
-        method: "PUT", // ANOMALIE, les specs disaient POST
+        method: "PUT", // ANOMALIE, un POST était attendu d'après Marie
         url: `${apiUrl}/orders/add`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: {
-          product: "6", // ID du produit
+          product: 6, // ID du produit
           quantity: 1,
         },
       }).then((response) => {
@@ -80,13 +80,13 @@ describe("API Tests method POST, Orders", () => {
       const token = response.body.token;
 
       cy.request({
-        method: "PUT", // ANOMALIE, les specs disaient POST
+        method: "PUT", // ANOMALIE, un POST était attendu d'après Marie
         url: `${apiUrl}/orders/add`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: {
-          product: "3", // ID du produit "Sentiments printanniers" en rupture
+          product: 3, // ID du produit "Sentiments printanniers" en rupture
           quantity: 1,
         },
         failOnStatusCode: false,
