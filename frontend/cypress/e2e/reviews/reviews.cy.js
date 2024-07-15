@@ -41,7 +41,7 @@ describe("User Reviews", () => {
 
         // Vérifier que le script n'est pas enregistré dans la base de données
         expect(response.body.comment).not.to.include(
-          "<script>alert('XSS')</script>"
+          "<script>alert('XSS')</script>" // ANOMALIE, le script est présent dans la base de données
         );
       });
     });
