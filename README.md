@@ -18,8 +18,7 @@ Pour le lancement du projet, vous aurez besoin de :
     `git clone https://github.com/OpenClassrooms-Student-Center/TesteurLogiciel_Automatisez_des_tests_pour_une_boutique_en_ligne.git `
 
 2.  Depuis un terminal ouvert dans le dossier du projet, lancez la commande :
-    `docker-compose up`
-    Docker est configuré pour que le back et le front se lancent en même temps, il n'est pas utile de taper `npm intall` puis `npm start`
+    `docker-compose up --build`
 
 3.  Ouvrez le site depuis la page [http://localhost:8080](http://localhost:8080)
 
@@ -54,5 +53,5 @@ contact : joseznec@gmail.com
 
 ## Versions
 
-- version 1.0.0 : tests manuels effectués par Marie. Une modification du code a été réalisée.
-- version 2.0.0 : tests automatiques et exploratoires effectués par Johanne.
+- version 1.0.0 : Version initiale de l'application
+- version 2.0.0 : Correction de bugs, tests automatisés et exploratoires supplémentaires
